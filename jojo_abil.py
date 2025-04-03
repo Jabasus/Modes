@@ -1,6 +1,8 @@
-
+import threading
 import random
 import time
+from time import sleep
+from sounds_jojo import Erasing_time_sound,barage_ge
 
 
 class Abil:
@@ -16,12 +18,35 @@ class Barage(Abil):
     def __init__(self):
 
         self.name = "Barage"
-        self.dmg = 0.5
+        self.dmg = 2.2
 
 
-    def use(self):
-        from jojo import  stand
-        print(stand)
+    def use(self,dmg_stand,stand):
+        dmg_barage = self.dmg * dmg_stand
+        if stand.name == "Gold Experience":
+            def sound_ge():
+                barage_ge()
+            def muda_barage():
+                for i in range(25):
+                    print("Muda")
+                    sleep(0.25)
+
+                sleep(0.55)
+                print("MUDAAAAAAAAAAAA")
+                sleep(0.5)
+                print("Вы нанесли",dmg_barage)
+
+            thread = threading.Thread(target=sound_ge)
+            thread1 = threading.Thread(target=muda_barage)
+
+            thread.start()
+            thread1.start()
+
+            thread.join()
+            thread1.join()
+
+
+
 
 
 
@@ -137,8 +162,36 @@ class Erasing_time(Abil):
     def __init__(self):
         super().__init__(duration=None)
         self.name = "Erasing time"
-        print("Создан объект Erasing_time")  # <-- Проверяем момент создания
 
     def use(self, opened_abilty):
-        print(*opened_abilty)
-        print("KING CRIMSON ВЫРЕЖИ ВРЕМЯ")
+        def sound():
+            Erasing_time_sound()
+
+        def seconds():
+            sec = 11
+            for i in range(10):
+                sec -= 1
+                print(f"{sec} секунд")
+                time.sleep(1)
+
+        def erasing_time(opened_abilty):
+            print("\nKING CRIMSON ВЫРЕЖИ ВРЕМЯ!")
+
+            print("Доступные способности:")
+            for index, ability in enumerate(opened_abilty):
+                print(f"{index + 1}. {ability}")
+
+        thread = threading.Thread(target=seconds)
+        thread1 = threading.Thread(target=erasing_time, args=(opened_abilty,))
+        thread2 = threading.Thread(target=sound)
+
+        thread.start()
+        thread1.start()
+        thread2.start()
+
+        thread.join()
+        thread1.join()
+        thread2.join()
+
+
+
