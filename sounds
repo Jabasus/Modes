@@ -1,0 +1,20 @@
+import pygame
+
+pygame.init()
+
+pygame.mixer.init()
+def barage_ge():
+    pygame.mixer.music.load(r"D:\proects\sound\Barage_Gold_Experiance.mp3")
+    pygame.mixer.music.play()
+
+
+    while pygame.mixer.music.get_busy():
+        pass
+
+def Erasing_time_sound():
+    pygame.mixer.music.load(r"D:\proects\sound\Erasing_time.mp3")
+    pygame.mixer.music.play()
+
+
+    while pygame.mixer.music.get_busy():
+        pass
